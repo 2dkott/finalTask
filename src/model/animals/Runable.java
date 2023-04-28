@@ -1,4 +1,4 @@
-package java.src.model;
+package src.model.animals;
 
 public interface Runable {
     void run();
