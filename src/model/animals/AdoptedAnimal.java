@@ -4,17 +4,17 @@ import src.model.Master;
 import java.util.UUID;
 
 public class AdoptedAnimal extends Animal {
-    private Master master;
+    private final Master master;
     private final AdoptionType adoptionType;
     private final String animalName;
-    private UUID id;
+    private String id;
 
     public AdoptedAnimal(Master master, AdoptionType adoptionType, AnimalTypes animalType, String animalName) {
         super(animalType);
         this.master = master;
         this.adoptionType = adoptionType;
         this.animalName = animalName;
-        this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID().toString();
     }
 
     public Master getMaster() {
@@ -29,8 +29,12 @@ public class AdoptedAnimal extends Animal {
         return animalName;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
+    }
+
+    protected void setId(String id){
+        this.id = id;
     }
 
     public static AdoptedAnimal of(String id, String animalType, String adoptionType, String animalName, String master) {
@@ -38,7 +42,13 @@ public class AdoptedAnimal extends Animal {
                 AdoptionType.valueOf(adoptionType),
                 AnimalTypes.valueOf(animalType),
                 animalName);
-        animal.id = UUID.fromString(id);
+        animal.setId(id);
         return animal;
-        }
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Питомец %s:\nИмя: %s\nЖивотное: %s\nХозяин: %s", id.toString(), animalName, getAnimalType().toString(), getMaster().toString());
+    }
+
 }

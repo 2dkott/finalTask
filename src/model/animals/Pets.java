@@ -2,31 +2,29 @@ package src.model.animals;
 
 import src.model.Master;
 import src.model.commands.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Pets extends AdoptedAnimal {
-    private final String petName;
-    private final List<Commands> learnedCommandsList = new ArrayList<>();
+public class Pets extends AdoptedAnimal implements CommandRunnable{
+
     public Pets(AnimalTypes animalType, String petName, Master master) {
         super(master, AdoptionType.PETS, animalType, petName);
-        this.petName = petName;
+    }
+    public Pets(AdoptedAnimal adoptedAnimal) {
+        super(adoptedAnimal.getMaster(), adoptedAnimal.getAdoptionType(), adoptedAnimal.getAnimalType(), adoptedAnimal.getAnimalName());
     }
 
-    public void playCommand(Commands command) throws NoCommandException, NoLearnedCommandException {
-        Commands commandSearchResult = learnedCommandsList.stream()
-                .filter(learnedCommand -> learnedCommand.equals(command))
-                .findAny().orElseThrow(() -> new NoLearnedCommandException(command.toString()));
-        CommandsHandler.getCommand(commandSearchResult).run();
+    @Override
+    public void runCommand(Commands command) {
+        System.out.println(String.format("Питомец выполняет комманду '%s'", command.toString()));
     }
 
-    public void learnCommand(Commands command){
-        if(!learnedCommandsList.contains(command)){
-            learnedCommandsList.add(command);
-        }
+    public static Pets of(AdoptedAnimal adoptedAnimal) {
+        Pets animal = new Pets(adoptedAnimal.getAnimalType(), adoptedAnimal.getAnimalName(), adoptedAnimal.getMaster());
+        animal.setId(adoptedAnimal.getId());
+        return animal;
     }
 
-
-
-
+    @Override
+    public String toString(){
+        return super.toString();
+    }
 }
