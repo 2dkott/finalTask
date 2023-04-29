@@ -1,13 +1,14 @@
 package src.persistance;
 
-import src.model.animals.AdoptedAnimal;
+import src.model.animals.Pets;
+
 import java.util.List;
 
 public interface AnimalRepository {
 
-    List<AdoptedAnimal> getAllAnimals();
+    List<Pets> getAllAnimals();
 
-    AdoptedAnimal createAnimal(AdoptedAnimal animal);
+    Pets createAnimal(Pets pet);
 
-    AdoptedAnimal getAnimalById(String id) throws AnimalIsNotInList;
+    Pets getAnimalById(String id) throws AnimalIsNotInList;
 }
