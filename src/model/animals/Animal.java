@@ -2,7 +2,7 @@ package src.model.animals;
 
 public class Animal {
 
-    private AnimalTypes animalType;
+    private final AnimalTypes animalType;
 
     public Animal(AnimalTypes animalType){
         this.animalType=animalType;
