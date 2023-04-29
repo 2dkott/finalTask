@@ -1,6 +1,7 @@
 package src.persistance;
 
-import src.model.animals.AdoptedAnimal;
+import src.model.animals.Pets;
+
 import java.util.*;
 
 public class AnimalRepositoryFile implements AnimalRepository {
@@ -13,30 +14,30 @@ public class AnimalRepositoryFile implements AnimalRepository {
     }
 
     @Override
-    public List<AdoptedAnimal> getAllAnimals() {
+    public List<Pets> getAllAnimals() {
         List<String> lines = fileOperation.readAllLines();
-        List<AdoptedAnimal> animals = new ArrayList<>();
+        List<Pets> animals = new ArrayList<>();
         for (String line : lines) {
-            animals.add(AnimalMapper.map(line,DIVIDER));
+            animals.add(Pets.of(AnimalMapper.map(line,DIVIDER)));
         }
         return animals;
     }
 
     @Override
-    public AdoptedAnimal createAnimal(AdoptedAnimal animal) {
-        fileOperation.addLine(AnimalMapper.map(animal,DIVIDER));
-        return animal;
+    public Pets createAnimal(Pets pet) {
+        fileOperation.addLine(AnimalMapper.map(pet,DIVIDER));
+        return pet;
     }
 
     @Override
-    public AdoptedAnimal getAnimalById(String id) throws AnimalIsNotInList {
-        List<AdoptedAnimal> animals = getAllAnimals();
-        return findNoteById(animals, id);
+    public Pets getAnimalById(String id) throws AnimalIsNotInList {
+        List<Pets> animals = getAllAnimals();
+        return findAnimalById(animals, id);
     }
 
-    private AdoptedAnimal findNoteById( List<AdoptedAnimal> animals, String id) throws AnimalIsNotInList {
-        Optional<AdoptedAnimal> resultNote = animals.stream()
+    private Pets findAnimalById(List<Pets> pets, String id) throws AnimalIsNotInList {
+        Optional<Pets> resultAnimal = pets.stream()
                 .filter(animal -> animal.getId().equals(id)).findFirst();
-        return resultNote.orElseThrow(()->new AnimalIsNotInList(id));
+        return resultAnimal.orElseThrow(()->new AnimalIsNotInList(id));
     }
 }
