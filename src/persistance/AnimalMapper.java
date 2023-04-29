@@ -10,7 +10,7 @@ public class AnimalMapper {
     }
 
     public static String map(AdoptedAnimal animal, String divider){
-        return String.format("%s,%s,%s,%s",
+        return String.format("%s,%s,%s,%s,%s",
                 animal.getId(),
                 animal.getAnimalType().toString(),
                 animal.getAdoptionType().toString(),
