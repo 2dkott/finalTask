@@ -6,4 +6,9 @@ public class Master extends Human {
         super(fullName);
     }
 
+    @Override
+    public String toString(){
+        return getFullName();
+    }
+
 }
