@@ -8,9 +8,9 @@ public class RecordAddedCounter implements Closeable {
     private int amount;
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         amount+=1;
-        System.out.println(String.format("Запись № %s добавлена!", amount));
+        System.out.println(String.format("Запись № %s добавлена!\n", amount));
     }
 
     public void setRecords(int recordsAmount){

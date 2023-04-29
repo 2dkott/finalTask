@@ -49,7 +49,6 @@ public class FileOperationImpl implements FileOperation {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
             RecordAddedCounter counter = new RecordAddedCounter())
-
         {
             counter.setRecords(readAllLines().size());
             out.println(line);
