@@ -1,0 +1,125 @@
+
+create database pets_database;
+use pets_database;
+
+CREATE TABLE camels(
+	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	pets_name VARCHAR(45) NOT NULL,
+	commands VARCHAR(45) NOT NULL,
+	birth_date DATETIME(6) NOT NULL
+);
+
+INSERT INTO camels (pets_name, commands, birth_date)
+VALUES
+('NameA', 'Sleep', '2012-01-01 00:00:00'),
+('NameB', 'Sit', '2012-01-01 00:00:00'),
+('NameC', 'Freeze', '2002-01-01 00:00:00');
+
+MariaDB [pets_database]> select * from camels;
++----+-----------+----------+----------------------------+
+| id | pets_name | commands | birth_date                 |
++----+-----------+----------+----------------------------+
+|  1 | NameA     | Sleep    | 2012-01-01 00:00:00.000000 |
+|  2 | NameB     | Sit      | 2012-01-01 00:00:00.000000 |
+|  3 | NameC     | Freeze   | 2002-01-01 00:00:00.000000 |
++----+-----------+----------+----------------------------+
+3 rows in set (0.001 sec)
+
+
+CREATE TABLE horses(
+	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	pets_name VARCHAR(45) NOT NULL,
+	commands VARCHAR(45) NOT NULL,
+	birth_date DATETIME(6) NOT NULL
+);
+INSERT INTO horses (pets_name, commands, birth_date)
+VALUES
+('HorseA', 'Run', '2012-01-01 00:00:00'),
+('HorseB', 'Jump', '2012-01-01 00:00:00'),
+('HorseC', 'Stop', '2002-01-01 00:00:00');
+
+MariaDB [pets_database]> select * from horses;
++----+-----------+----------+----------------------------+
+| id | pets_name | commands | birth_date                 |
++----+-----------+----------+----------------------------+
+|  1 | HorseA    | Run      | 2012-01-01 00:00:00.000000 |
+|  2 | HorseB    | Jump     | 2012-01-01 00:00:00.000000 |
+|  3 | HorseC    | Stop     | 2002-01-01 00:00:00.000000 |
++----+-----------+----------+----------------------------+
+3 rows in set (0.000 sec)
+
+CREATE TABLE donkeys(
+	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	pets_name VARCHAR(45) NOT NULL,
+	commands VARCHAR(45) NOT NULL,
+	birth_date DATETIME(6) NOT NULL
+);
+INSERT INTO donkeys (pets_name, commands, birth_date)
+VALUES
+('DonkeyA', 'Run', '2012-01-01 00:00:00'),
+('DonkeyB', 'Jump', '2012-01-01 00:00:00'),
+('DonkeyC', 'Stop', '2002-01-01 00:00:00');
+MariaDB [pets_database]> select * from donkeys;
++----+-----------+----------+----------------------------+
+| id | pets_name | commands | birth_date                 |
++----+-----------+----------+----------------------------+
+|  1 | DonkeyA   | Run      | 2012-01-01 00:00:00.000000 |
+|  2 | DonkeyB   | Jump     | 2012-01-01 00:00:00.000000 |
+|  3 | DonkeyC   | Stop     | 2002-01-01 00:00:00.000000 |
++----+-----------+----------+----------------------------+
+3 rows in set (0.000 sec)
+
+MariaDB [pets_database]> delete from camels;
+Query OK, 3 rows affected (0.005 sec)
+
+MariaDB [pets_database]> select * from camels;
+Empty set (0.001 sec)
+
+CREATE TABLE animals(
+	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	pets_name VARCHAR(45) NOT NULL,
+	commands VARCHAR(45) NOT NULL,
+	birth_date DATETIME(6) NOT NULL
+);
+
+INSERT INTO animals(pets_name, commands, birth_date)
+SELECT pets_name, commands, birth_date FROM donkeys
+UNION
+SELECT pets_name, commands, birth_date FROM horses;
+MariaDB [pets_database]> select * from animals;
++----+-----------+----------+----------------------------+
+| id | pets_name | commands | birth_date                 |
++----+-----------+----------+----------------------------+
+|  4 | DonkeyA   | Run      | 2012-01-01 00:00:00.000000 |
+|  5 | DonkeyB   | Jump     | 2012-01-01 00:00:00.000000 |
+|  6 | DonkeyC   | Stop     | 2002-01-01 00:00:00.000000 |
+|  7 | HorseA    | Run      | 2012-01-01 00:00:00.000000 |
+|  8 | HorseB    | Jump     | 2012-01-01 00:00:00.000000 |
+|  9 | HorseC    | Stop     | 2002-01-01 00:00:00.000000 |
++----+-----------+----------+----------------------------+
+6 rows in set (0.000 sec)
+
+INSERT INTO animals (pets_name, commands, birth_date)
+VALUES
+('DonkeyD', 'Run', '2021-04-30 00:00:00'),
+('DonkeyE', 'Run', '2022-05-30 00:00:00'),
+('HorseD', 'Run', '2020-03-30 00:00:00'),
+('HorseE', 'Run', '2022-12-30 00:00:00');
+
+CREATE TABLE young_animals(
+	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	pets_name VARCHAR(45) NOT NULL,
+	age int NOT NULL,
+	birth_date DATETIME(6) NOT NULL
+);
+
+INSERT INTO young_animals (pets_name, age, birth_date)
+SELECT pets_name, TIMESTAMPDIFF(YEAR, birth_date, CURDATE()), birth_date FROM animals WHERE birth_date <= DATE(NOW()-INTERVAL 1 YEAR) AND birth_date >= DATE(NOW()-INTERVAL 3 YEAR);
+
+MariaDB [pets_database]> select * from young_animals;
++----+-----------+-----+----------------------------+
+| id | pets_name | age | birth_date                 |
++----+-----------+-----+----------------------------+
+|  1 | DonkeyD   |   2 | 2021-04-30 00:00:00.000000 |
++----+-----------+-----+----------------------------+
+1 row in set (0.000 sec)
