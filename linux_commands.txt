@@ -1,0 +1,41 @@
+kot2d@kot2d-VirtualBox:~/Desktop$ cat > pets.txt
+Cat, Dog, Hamster
+kot2d@kot2d-VirtualBox:~/Desktop$ cat > baggage_animal.txt
+Camel, Hours, Donkey
+kot2d@kot2d-VirtualBox:~/Desktop$ ls -l
+total 16
+-rw-rw-r-- 1 kot2d kot2d   20 Apr 30 20:56 baggage_animal.txt
+-rw-rw-r-- 1 kot2d kot2d   20 Apr 30 20:41 pets.txt
+...
+kot2d@kot2d-VirtualBox:~/Desktop$ ls -l
+kot2d@kot2d-VirtualBox:~/Desktop$ cat baggage_animal.txt pets.txt > temp.txt
+kot2d@kot2d-VirtualBox:~/Desktop$ ls -l
+total 20
+-rw-rw-r-- 1 kot2d kot2d   20 Apr 30 20:56 baggage_animal.txt
+-rw-rw-r-- 1 kot2d kot2d  322 Apr 20 18:14 docker-compose.yml
+-rw-rw-r-- 1 kot2d kot2d   40 Apr 30 20:58 temp.txt
+...
+kot2d@kot2d-VirtualBox:~/Desktop$ nano temp.txt
+Camel, Hours, DonkeyCat, Dog, Hamster
+kot2d@kot2d-VirtualBox:~/Desktop$ mv temp.txt human_friends.txt
+kot2d@kot2d-VirtualBox:~/Desktop$ mkdir testDirectory
+kot2d@kot2d-VirtualBox:~/Desktop$ mv baggage_animal.txt pets.txt human_friends.txt ./testDirectory/
+
+
+
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo apt-get update
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo apt-get upgrade
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo apt-get install mysql-apt-config
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo apt-get remove mysql-apt-config
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo dpkg -i jdk-17_linux-x64_bin.deb
+Selecting previously unselected package jdk-17.
+(Reading database ... 200487 files and directories currently installed.)
+Preparing to unpack jdk-17_linux-x64_bin.deb ...
+...
+kot2d@kot2d-VirtualBox:~/Desktop$ sudo dpkg -r jdk-17
+(Reading database ... 200965 files and directories currently installed.)
+Removing jdk-17 (17.0.6-ga)
+
+
+
+
